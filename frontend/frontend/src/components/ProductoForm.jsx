@@ -162,7 +162,7 @@ export default function ProductoForm() {
             <label className="form-label">Nombre *</label>
             <input
               className="form-control form-control-lg"
-              placeholder="Ej: Camisa, Pantalón..."
+              placeholder="Ej: Arroz, Jabon.."
               value={nombre}
               onChange={(e) => setNombre(e.target.value)}
             />
