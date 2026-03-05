@@ -1,45 +1,120 @@
+/* ===== THEME AMARILLO PARA TIENDA ===== */
+
 :root {
-  --bg: #f6f7fb;
+  --yellow-main: #facc15;
+  --yellow-soft: #fef9c3;
+  --yellow-strong: #eab308;
+
+  --bg: #fffdf4;
+  --text: #1f2937;
+  --muted: #6b7280;
+
+  --border: rgba(0, 0, 0, 0.08);
+  --radius: 16px;
+
+  --shadow-soft: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
+/* Fondo general */
 body {
-  background: var(--bg);
+  background: linear-gradient(180deg, #fffef8, #fffdf4);
+  color: var(--text);
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto;
 }
 
-.app-shell {
-  min-height: 100vh;
+/* Navbar */
+.navbar {
+  background: #fffbea !important;
+  border-bottom: 1px solid var(--border) !important;
 }
 
 .navbar-brand {
   font-weight: 700;
-  letter-spacing: 0.2px;
 }
 
+/* Links navbar */
+.nav-link {
+  color: var(--muted) !important;
+  transition: all 0.2s ease;
+}
+
+.nav-link:hover {
+  color: #000 !important;
+  background: var(--yellow-soft);
+  border-radius: 10px;
+}
+
+.nav-link.active {
+  background: var(--yellow-main);
+  color: #000 !important;
+}
+
+/* Cards */
 .card {
-  border: 0;
-  border-radius: 16px;
+  border-radius: var(--radius) !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: var(--shadow-soft) !important;
+  background: white !important;
 }
 
-.shadow-soft {
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
-}
-
-.form-label {
-  font-weight: 600;
-}
-
-.btn {
-  border-radius: 12px;
-}
-
+/* Botones */
 .btn-primary {
-  box-shadow: 0 10px 20px rgba(13, 110, 253, 0.15);
+  background: var(--yellow-main) !important;
+  border: none !important;
+  color: #000 !important;
+  font-weight: 600;
 }
 
-.badge-soft {
-  background: rgba(13, 110, 253, 0.12);
-  color: #0d6efd;
-  border-radius: 999px;
-  padding: 0.45rem 0.7rem;
-  font-weight: 600;
+.btn-primary:hover {
+  background: var(--yellow-strong) !important;
+}
+
+/* Inputs */
+.form-control {
+  border-radius: 12px !important;
+}
+
+.form-control:focus {
+  border-color: var(--yellow-main) !important;
+  box-shadow: 0 0 0 0.25rem rgba(250, 204, 21, 0.25) !important;
+}
+
+/* Tabla bonita */
+.table {
+  border-collapse: separate !important;
+  border-spacing: 0 8px !important;
+}
+
+.table thead th {
+  border: none !important;
+  color: var(--muted);
+}
+
+.table tbody tr {
+  background: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+}
+
+.table tbody tr td {
+  border: none !important;
+}
+
+/* Badge Beta */
+.badge {
+  border-radius: 999px !important;
+}
+
+.badge.text-bg-primary {
+  background: var(--yellow-main) !important;
+  color: #000 !important;
+}
+
+/* Botón salir */
+.btn-outline-danger {
+  border-radius: 12px !important;
 }
