@@ -9,6 +9,11 @@ function round2(n) {
   return Math.round(n * 100) / 100;
 }
 
+function normalizeCategoria(categoria) {
+  const c = (categoria ?? "").toString().trim();
+  return c.length ? c : "Sin categoría";
+}
+
 // Obtener todos los productos
 router.get("/", async (req, res, next) => {
   try {
@@ -48,7 +53,7 @@ router.get("/:id", async (req, res, next) => {
 // Crear un nuevo producto
 router.post("/", async (req, res, next) => {
   try {
-    const { nombre, precioCompra, margen } = req.body;
+    const { nombre, precioCompra, margen, stock, categoria } = req.body;
 
     if (!nombre || precioCompra === undefined) {
       return res
@@ -70,15 +75,23 @@ router.post("/", async (req, res, next) => {
         .json({ mensaje: "margen debe ser un número válido" });
     }
 
+    const st = stock === undefined ? 0 : Number(stock);
+    if (Number.isNaN(st) || st < 0) {
+      return res
+        .status(400)
+        .json({ mensaje: "stock debe ser un número válido" });
+    }
+
     const precioVenta = pc * (1 + m / 100);
 
     const nuevoProducto = {
       nombre: String(nombre).trim(),
+      categoria: normalizeCategoria(categoria),
       precioCompra: pc,
       margen: m,
       precioVenta: round2(precioVenta),
       fechaCreacion: new Date(),
-      stock: 0,
+      stock: Math.max(0, st),
     };
 
     const result =
@@ -103,9 +116,9 @@ router.put("/:id", async (req, res, next) => {
       return res.status(400).json({ mensaje: "ID inválido" });
     }
 
-    const { nombre, precioCompra, margen, stock } = req.body;
+    const { nombre, precioCompra, margen, stock, categoria } = req.body;
 
-    // Buscar producto actual para poder recalcular sin NaN
+    // Buscar producto actual para recalcular sin NaN
     const actual = await req.context.collections.productos.findOne({
       _id: new ObjectId(id),
     });
@@ -140,6 +153,9 @@ router.put("/:id", async (req, res, next) => {
 
     const updateData = {
       ...(nombre !== undefined ? { nombre: String(nombre).trim() } : {}),
+      ...(categoria !== undefined
+        ? { categoria: normalizeCategoria(categoria) }
+        : {}),
       precioCompra: pc,
       margen: m,
       precioVenta: round2(precioVenta),
