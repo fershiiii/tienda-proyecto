@@ -1,4 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
+import { setLoggedIn, isLoggedIn } from "../auth"; // si Navbar está en src/components
 
 export default function Navbar() {
   return (
